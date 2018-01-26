@@ -1,0 +1,55 @@
+#!/bin/bash
+# Load a CSV into a pandas dataframe, execute a command on it
+
+usage(){
+cat << EOF
+
+Load a CSV into a pandas dataframe and execute some command on it.
+
+Options:
+        -d Delimiter
+        -e Execute this command, give everything following 'df.'
+        -p If you're running a plot command, make a plot (plots to out.png)
+
+EOF
+}
+
+DELIM=","
+IMPORT="import pandas as pd; "
+PLOT=false
+
+POSITIONAL=()
+while [[ $# -gt 0 ]]
+do
+key="$1"
+
+case $key in
+    -d|--delimiter)
+    DELIM="$2"
+    shift # past argument
+    shift # past value
+    ;;
+    -e|--execute)
+    COMMAND="$2"
+    shift # past argument
+    shift # past value
+    ;;
+    -p|--plot)
+    PLOT=true
+    shift # past value
+    ;;
+    *)    # unknown option
+    FILE+=("$1")
+    shift # past argument
+    ;;
+esac
+done
+
+READ="df = pd.read_csv('$FILE', delimiter='$DELIM'); "
+
+if $PLOT; then
+	python -c "$IMPORT$READ plot = (df.$COMMAND); plot.get_figure().savefig('out.png')"
+else
+	python -c "$IMPORT$READ print(df.$COMMAND)"
+fi
+
