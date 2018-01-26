@@ -1,6 +1,6 @@
 # DFIO
 
-Load a CSV into a dataframe, execute some (fairly simple) pandas command and return a result/make a plot.
+Command line utility to load a CSV into a dataframe, execute some (fairly simple) pandas command and return a result/make a plot.
 
 ```
    Options:
