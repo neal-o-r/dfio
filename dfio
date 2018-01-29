@@ -4,13 +4,19 @@
 usage(){
 cat << EOF
 
-Load a CSV into a pandas dataframe and execute some command on it.
-
-Options:
-        -d Delimiter
-        -e Execute this command, give everything following 'df.'
-        -p If you're running a plot command, make a plot (plots to out.png)
-
+   Options:
+          -d, --delimiter 
+	  	Delimiter
+          -e, --execute 
+	  	Execute this command (give everything following 'df.')
+          -p, --plot 
+	  	Set to make a plot (plots to 'out.png')
+          -h, --help 
+	  	Print help message
+   
+   Example:
+           $ dfio -d '\t' -e 'sepal_length.mean()' iris.tsv
+           5.843
 EOF
 }
 
