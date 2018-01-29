@@ -38,6 +38,9 @@ case $key in
     PLOT=true
     shift # past value
     ;;
+    -h)--help)
+    usage; exit;
+    ;;
     *)    # unknown option
     FILE+=("$1")
     shift # past argument
