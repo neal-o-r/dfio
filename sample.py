@@ -10,8 +10,10 @@ def sample(filename, n, header):
             sys.stdout.write(next(f))
         for l in f:
             if rd.random() < n:
-                sys.stdout.write(l)
-
+                try:
+                    sys.stdout.write(l)
+                except(BrokenPipeError, IOError):
+                    pass
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Sample some fraction of a the rows of a file')
