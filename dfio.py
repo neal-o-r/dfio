@@ -13,7 +13,7 @@ def dfio(fname, delimiter, execute, plot):
 
     df = pd.read_csv(fname, delimiter=delimiter)
     if plot:
-        plot = eval('df.' + execute)
+        plot = eval(f'df.{execute}')
         plot.get_figure().savefig('out.png')
     else:
         sys.stdout.write(str(eval(f'df.{execute}')) + '\n')
