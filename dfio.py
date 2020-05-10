@@ -9,6 +9,14 @@ def unescaped_str(arg_str):
     return codecs.decode(str(arg_str), 'unicode_escape')
 
 
+def output(x, delimiter):
+    if (isinstance(x, pd.core.series.Series)
+            or isinstance(x, pd.core.frame.DataFrame)):
+        print(x.to_csv(None, sep=delimiter))
+    else:
+        print(x)
+
+
 def dfio(fname, delimiter, execute, plot):
 
     df = pd.read_csv(fname, delimiter=delimiter)
@@ -16,7 +24,7 @@ def dfio(fname, delimiter, execute, plot):
         plot = eval(f'df.{execute}')
         plot.get_figure().savefig('out.png')
     else:
-        sys.stdout.write(str(eval(f'df.{execute}')) + '\n')
+        output(eval(f'df.{execute}'), delimiter)
 
 
 if __name__ == '__main__':
